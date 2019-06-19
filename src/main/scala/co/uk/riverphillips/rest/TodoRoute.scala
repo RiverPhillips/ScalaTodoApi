@@ -20,7 +20,7 @@ class TodoRoute extends JsonSupport {
   implicit val dateStringUnmarshaller: Unmarshaller[String, Date] =
     Unmarshaller.strict[String, Date] {
       import java.text.SimpleDateFormat
-      val formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+      val formatter = new SimpleDateFormat("yyyy-MM-dd")
 
       string: String => formatter.parse(string)
     }
