@@ -27,7 +27,7 @@ object WebService extends App {
 
     todoRepository.ddl.onComplete { _ =>
     todoRepository.createTodo(Todo("Ride bike", LocalDate.of(2019, Month.AUGUST, 1), false))
-    Http().bindAndHandle(todoService.todoRoutes, "localhost", 9000)
+    Http().bindAndHandle(todoService.todoRoutes, "localhost", 8080)
     println("Server has started")
   }
 }

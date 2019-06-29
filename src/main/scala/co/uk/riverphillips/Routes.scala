@@ -1,6 +1,6 @@
 package co.uk.riverphillips
 
-import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import co.uk.riverphillips.models.Todo
 import co.uk.riverphillips.repository.TodoRepository
@@ -30,6 +30,15 @@ class Routes @Inject()(todoRepository: TodoRepository) extends JsonHelper {
           onSuccess(todoRepository.getTodoById(todoId)) {
             case Some(todo) => complete(todo)
             case None => complete(StatusCodes.NotFound)
+          }
+        }
+      }
+    }~
+    put{
+      path("todo") {
+        entity(as[Todo]){todo =>
+          onSuccess(todoRepository.updateTodo(todo)) {
+            id => complete(HttpEntity(ContentTypes.`application/json`, s"$id"))
           }
         }
       }
